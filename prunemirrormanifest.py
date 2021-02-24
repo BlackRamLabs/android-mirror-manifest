@@ -20,6 +20,7 @@ except subprocess.CalledProcessError as exc:
 
 manifestRepoTags = []
 androidReleases = set()
+devices = set()
 for line in manifestRepoRefs.splitlines():
     columnTwo = line.split()[1]
     if(re.match('refs/tags/.*', columnTwo)):
@@ -54,10 +55,22 @@ for release in androidReleases:
         revisionsToDownload.append('android-' + release + '_r' + str(revision))
 print(revisionsToDownload)
 
-platformManifestURL = 'https://android.googlesource.com/platform/manifest/+/master/default.xml?format=TEXT'
+# Prune devices
+
+while ( pruneDeviceProjectsInput := input('Prune device/ projects?: (y/N)').lower() ) not in {"y", "n", ""}: pass
+
+pruneDeviceProjects = (pruneDeviceProjectsInput == 'y')
+
 mirrorManifestURL = 'https://android.googlesource.com/mirror/manifest/+/master/default.xml?format=TEXT'
-manifestXMLFiles = []
 mirrorManifestFileName = 'mirror.xml'
+
+with open(mirrorManifestFileName, 'wb') as mirrorFile:
+    mirrorFile.write(base64.b64decode(requests.get(mirrorManifestURL).content))
+
+# Get device projects...TODO. For now just all or nothing
+
+platformManifestURL = 'https://android.googlesource.com/platform/manifest/+/master/default.xml?format=TEXT'
+manifestXMLFiles = []
 
 # Download manifest XMLs for releases and also master manifest
 for release in revisionsToDownload:
@@ -73,9 +86,6 @@ for release in revisionsToDownload:
 
 setOfProjectNames = set()
 
-with open(mirrorManifestFileName, 'wb') as mirrorFile:
-    mirrorFile.write(base64.b64decode(requests.get(mirrorManifestURL).content))
-
 for fileName in manifestXMLFiles:
     tree = ET.parse(fileName)
     print('Parsed XML file ', fileName)
@@ -85,7 +95,8 @@ for fileName in manifestXMLFiles:
             if topChild.attrib.get('name') is not None:
                 name = topChild.attrib.get('name')
                 if name not in setOfProjectNames:
-                    setOfProjectNames.add(topChild.attrib.get('name'))
+                    if not pruneDeviceProjects or not name.startswith('device/'):
+                        setOfProjectNames.add(name)
 
 # All project names have been added. But "platform/manifest" needs to be added separately
 setOfProjectNames.add("platform/manifest")
@@ -111,3 +122,4 @@ for fileName in manifestXMLFiles:
     os.remove(fileName)
 # delete mirror manifest file
 os.remove(mirrorManifestFileName)
+
