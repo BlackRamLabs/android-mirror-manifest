@@ -57,7 +57,7 @@ print(revisionsToDownload)
 
 # Prune devices
 
-while ( pruneDeviceProjectsInput := input('Prune device/ projects?: (y/N)').lower() ) not in {"y", "n", ""}: pass
+while ( pruneDeviceProjectsInput := input('Prune device projects? (y/N): ').lower() ) not in {"y", "n", ""}: pass
 
 pruneDeviceProjects = (pruneDeviceProjectsInput == 'y')
 
