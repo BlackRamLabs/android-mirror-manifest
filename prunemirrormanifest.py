@@ -101,6 +101,11 @@ for fileName in manifestXMLFiles:
 # All project names have been added. But "platform/manifest" needs to be added separately
 setOfProjectNames.add("platform/manifest")
 
+# Make sure the common and sample device projects ares always included
+if pruneDeviceProjects:
+    setOfProjectNames.add("device/common")
+    setOfProjectNames.add("device/sample")
+
 # Parse the official mirror manifest and remove unneeded project names
 defaultTree = ET.parse(mirrorManifestFileName)
 defaultTreeRoot = defaultTree.getroot()

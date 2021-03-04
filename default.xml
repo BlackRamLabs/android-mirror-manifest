@@ -4,6 +4,8 @@
   <remote name="aosp" fetch="https://android.googlesource.com/" />
   <default revision="master" remote="aosp" sync-j="4" />
 
+  <project name="device/common" />
+  <project name="device/sample" />
   <project name="kernel/build" />
   <project name="kernel/configs" />
   <project name="kernel/prebuilts/4.19/arm64" />
@@ -451,6 +453,7 @@
   <project name="platform/external/rust/crates/clang-sys" />
   <project name="platform/external/rust/crates/clap" />
   <project name="platform/external/rust/crates/codespan-reporting" />
+  <project name="platform/external/rust/crates/crc32fast" />
   <project name="platform/external/rust/crates/derive_arbitrary" />
   <project name="platform/external/rust/crates/downcast-rs" />
   <project name="platform/external/rust/crates/env_logger" />
@@ -472,6 +475,7 @@
   <project name="platform/external/rust/crates/grpcio" />
   <project name="platform/external/rust/crates/grpcio-compiler" />
   <project name="platform/external/rust/crates/grpcio-sys" />
+  <project name="platform/external/rust/crates/half" />
   <project name="platform/external/rust/crates/hashbrown" />
   <project name="platform/external/rust/crates/hashlink" />
   <project name="platform/external/rust/crates/heck" />
@@ -536,6 +540,7 @@
   <project name="platform/external/rust/crates/ryu" />
   <project name="platform/external/rust/crates/scopeguard" />
   <project name="platform/external/rust/crates/serde" />
+  <project name="platform/external/rust/crates/serde_cbor" />
   <project name="platform/external/rust/crates/serde_derive" />
   <project name="platform/external/rust/crates/serde_json" />
   <project name="platform/external/rust/crates/serde_test" />
@@ -568,7 +573,9 @@
   <project name="platform/external/rust/crates/vsock" />
   <project name="platform/external/rust/crates/weak-table" />
   <project name="platform/external/rust/crates/which" />
+  <project name="platform/external/rust/crates/zip" />
   <project name="platform/external/rust/cxx" />
+  <project name="platform/external/ruy" />
   <project name="platform/external/safe-iop" />
   <project name="platform/external/scapy" />
   <project name="platform/external/scrypt" />
