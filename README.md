@@ -15,7 +15,7 @@ $ cd /usr/local/aosp/master
 $ repo init -u /usr/local/aosp/mirror/platform/manifest.git
 $ repo sync
 
-# eg. When the mirror manifest has beeen updated and you would like the new projects (to support the latest master code):
+# eg. When the AOSP has beeen updated and you would like the latest:
 # Update the mirror
 $ cd /usr/local/aosp/mirror
 $ repo sync
