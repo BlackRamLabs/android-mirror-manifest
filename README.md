@@ -1,3 +1,34 @@
+Creates an AOSP mirror of a more reasonable size than standard as it doesn't include outdated projects.
+
+## Quick Start
+
+```sh
+# eg. For creating a mirror that only has Android 8.0.0 and newer with no device projects:
+$ mkdir -p /usr/local/aosp/mirror
+$ cd /usr/local/aosp/mirror
+$ repo init -u https://github.com/BlackRamLabs/android-mirror-manifest -b since_8.0.0_no_device_projects --mirror
+$ repo sync
+
+# eg. For working on _master_ branch:
+$ mkdir -p /usr/local/aosp/master
+$ cd /usr/local/aosp/master
+$ repo init -u /usr/local/aosp/mirror/platform/manifest.git
+$ repo sync
+
+# eg. When the mirror manifest has beeen updated and you would like the new projects (to support the latest master code):
+# Get latest manifest
+$ cd /usr/local/aosp/mirror/.repo/manifests
+$ git pull
+# Update the mirror
+$ cd /usr/local/aosp/mirror
+$ repo sync
+# Update the project
+$ cd /usr/local/aosp/master
+$ repo sync
+```
+
+## Overview
+
 The mirror manifest can be used to create a local mirror of official Android source repos using the following commands
 
 ```sh
@@ -33,6 +64,6 @@ Prune device projects? (y/N): y
 ```
 
 To use this smaller mirror manifest just replace the URL _https://android.googlesource.com/mirror/manifest_ with _https://github.com/BlackRamLabs/android-mirror-manifest_
-in the mirroring step above
+in the standard mirroring steps.
 
-If you also want to build Android releases older than Oreo, then run _prunemirrormanifest.py_ and choose an older release
+If you also want to build Android releases older than Oreo, then fork this repo, clone your fork locally, run _prunemirrormanifest.py_ and choose an older release, push your updates, and init a repo mirror pointing at _https://github.com/YOUR_USER/android-mirror-manifest_
